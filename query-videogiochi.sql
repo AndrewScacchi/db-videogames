@@ -2,21 +2,43 @@
 
 --1- Selezionare tutte le software house americane (3)
 
-select *
-from software_houses
-where country = 'United States'
+--select *
+--from software_houses
+--where country = 'United States'
 
 --2- Selezionare tutti i giocatori della città di 'Rogahnland' (2)
 
+--select *
+--from players
+--where city = 'Rogahnland'
+
 --3- Selezionare tutti i giocatori il cui nome finisce per "a" (220)
+
+--select *
+--from players
+--where name like '%a'
 
 --4- Selezionare tutte le recensioni scritte dal giocatore con ID = 800 (11)
 
+--select *
+--from reviews
+--where player_id = 800
+
 --5- Contare quanti tornei ci sono stati nell'anno 2015 (9)
+
+--select *
+--from tournaments
+--where year = 2015
 
 --6- Selezionare tutti i premi che contengono nella descrizione la parola 'facere' (2)
 
+--select *
+--from awards
+--where description like '%facere%'
+
 --7- Selezionare tutti i videogame che hanno la categoria 2 (FPS) o 6 (RPG), mostrandoli una sola volta (del videogioco vogliamo solo l'ID) (287)
+
+
 
 --8- Selezionare tutte le recensioni con voto compreso tra 2 e 4 (2947)
 
