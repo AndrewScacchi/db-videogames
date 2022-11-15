@@ -127,15 +127,68 @@ ORDER BY avg_rating DESC;
 
 --1- selezionare i dati di tutti giocatori che hanno scritto almeno una recensione, mostrandoli una sola volta (996)
 
+SELECT DISTINCT name, lastname, nickname, city
+FROM players
+INNER JOIN reviews
+ON reviews.player_id = players.id;
+
 --2- sezionare tutti i videogame dei tornei tenuti nel 2016, mostrandoli una sola volta (226)
+
+SELECT DISTINCT videogames.id, videogames.name
+--tournament_id, tournaments.year
+FROM videogames
+INNER JOIN tournament_videogame
+ON tournament_videogame.videogame_id = videogames.id
+INNER JOIN tournaments
+ON tournament_videogame.tournament_id = tournaments.id
+WHERE tournaments.year = 2016;
 
 --3- mostrare le categorie di ogni videogioco (1718)
 
+SELECT videogames.name AS game, categories.name as category
+FROM category_videogame
+INNER JOIN videogames
+ON category_videogame.videogame_id = videogames.id
+INNER JOIN categories
+ON category_videogame.category_id = categories.id;
+
 --4- selezionare i dati di tutte le software house che hanno rilasciato almeno un gioco dopo il 2020, mostrandoli una sola volta (6)
+
+SELECT DISTINCT software_houses.name, software_houses.tax_id, software_houses.city, software_houses.country
+FROM software_houses
+INNER JOIN videogames
+ON videogames.software_house_id = software_houses.id
+WHERE videogames.release_date >= '2020.12.31';
 
 --5- selezionare i premi ricevuti da ogni software house per i videogiochi che ha prodotto (55)
 
+SELECT software_houses.name as SoftwareHouse, videogames.name as Game, awards.name as Award
+FROM award_videogame
+INNER JOIN videogames
+ON award_videogame.videogame_id = videogames.id
+INNER JOIN awards
+ON award_videogame.award_id = awards.id
+INNER JOIN software_houses
+ON videogames.software_house_id = software_houses.id
+ORDER BY SoftwareHouse;
+
 --6- selezionare categorie e classificazioni pegi dei videogiochi che hanno ricevuto recensioni da 4 e 5 stelle, mostrandole una sola volta (3363)
+
+SELECT DISTINCT categories.name as Category, videogames.name as Game, pegi_labels.name as PEGI
+--had to remove the PEGI from select because it would show both 4 AND 5 ratings as separate entities
+FROM categories
+INNER JOIN category_videogame
+ON category_videogame.category_id = categories.id
+INNER JOIN videogames
+ON category_videogame.videogame_id = videogames.id
+INNER JOIN pegi_label_videogame
+On pegi_label_videogame.videogame_id = videogames.id
+INNER JOIN pegi_labels
+ON pegi_label_videogame.pegi_label_id = pegi_labels.id
+INNER JOIN reviews
+ON reviews.videogame_id = videogames.id
+WHERE reviews.rating >= 4 
+ORDER BY Category;
 
 --7- selezionare quali giochi erano presenti nei tornei nei quali hanno partecipato i giocatori il cui nome inizia per 's' (474)
 
